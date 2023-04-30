@@ -7,6 +7,7 @@ import { useState, useMemo, forwardRef } from 'react'
 import { useLoader } from '@react-three/fiber'
 import { Html, useGLTF, Scroll, ScrollControls, useScroll, useTexture } from '@react-three/drei'
 import useRefs from 'react-use-refs'
+import { Box } from '@mui/material'
 const rsqw = (t, delta = 0.1, a = 1, f = 1 / (2 * Math.PI)) => (a / Math.atan(1 / delta)) * Math.atan(Math.sin(2 * Math.PI * t * f) / delta)
 
 // Dynamic import is used to prevent a payload when the website starts, that includes threejs, r3f etc..
@@ -21,25 +22,28 @@ export default function Page(props) {
   // const [rotation, setRotation] = useState([0, 0, 0])
   // const obj = useLoader(OBJLoader, '/dumbbell.obj')
   // const texture = useTexture('/img/db_texture.jpg')
+
   return (
-    <div className='absolute top-0 left-0 w-screen flex flex-col items-center'>
-      <div >
+    <Box sx={{ position: 'absolute', top: '0', left: '0', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <Box sx={{ width: '100%', height: '100%' }}>
         <Canvas shadows dpr={[1, 2]} camera={{ position: [0, -3.2, 40], fov: 12 }}>
-          <ScrollControls pages={1}>
+          <ScrollControls pages={5}>
             <Scroll html>
-              <div className='test'>sup</div>
-              <div className='test'>lol</div>
-              <div className='test'>lol</div>
-              <div className='test'>lol</div>
-              <div className='test'>lol</div>
+              <div className='wrappewr'>
+                <div className='test'>sup</div>
+                <div className='test'>lol</div>
+                <div className='test'>lol</div>
+                <div className='test'>lol</div>
+                <div className='test'>lol</div>
+              </div>
             </Scroll>
             <Composition />
 
           </ScrollControls>
         </Canvas>
-      </div>
+      </Box>
 
-    </div>
+    </Box>
 
   )
 }
@@ -56,9 +60,9 @@ function Composition({ ...props }) {
     const r3 = scroll.visible(4 / 5, 1 / 5)
     db.current.rotation.x = Math.PI - (Math.PI / 2) * rsqw(r1) + r2 * 0.33
     // mbp14.current.rotation.x = Math.PI - (Math.PI / 2) * rsqw(r1) - r2 * 0.39
-    group.current.rotation.y = THREE.MathUtils.damp(group.current.rotation.y, (-Math.PI / 1.45) * r2, 4, delta)
+    // group.current.rotation.y = THREE.MathUtils.damp(group.current.rotation.y, (-Math.PI / 1.45) * r2, 4, delta)
     // group.current.position.x = THREE.MathUtils.damp(group.current.position.x, (-width / 7) * r2, 4, delta)
-    group.current.scale.x = group.current.scale.y = group.current.scale.z = THREE.MathUtils.damp(group.current.scale.z, 1 + 0.24 * (1 - rsqw(r1)), 4, delta)
+    // group.current.scale.x = group.current.scale.y = group.current.scale.z = THREE.MathUtils.damp(group.current.scale.z, 1 + 0.24 * (1 - rsqw(r1)), 4, delta)
     keyLight.current.position.set(0.25 + -15 * (1 - r1), 4 + 11 * (1 - r1), 3 + 2 * (1 - r1))
     // left.current?.classList.toggle('show', r3)
     // right.current?.classList.toggle('show', r3)
@@ -69,12 +73,11 @@ function Composition({ ...props }) {
       <directionalLight ref={keyLight} castShadow intensity={6}>
         <orthographicCamera attachObject={['shadow', 'camera']} args={[-10, 10, 10, -10, 0.5, 30]} />
       </directionalLight>
-      <group ref={group} position={[0, -height / 2.65, 0]} {...props}>
+      <group ref={group} position={[0, 0, 0]} {...props}>
         <spotLight ref={stripLight} position={[width * 2.5, 0, width]} angle={0.19} penumbra={1} intensity={0.25} />
         <spotLight ref={fillLight} position={[0, -width / 2.4, -width * 2.2]} angle={0.2} penumbra={1} intensity={2} distance={width * 3} />
         <DB ref={db} texture={textureRed} scale={width / 67}>
         </DB>
-
       </group>
     </>
   )
