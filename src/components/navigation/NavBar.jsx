@@ -36,7 +36,7 @@ function ResponsiveAppBar() {
     };
 
     return (
-        <Box sx={{ flexGrow: 1, padding: '15px' }}>
+        <Box sx={{ position: 'fixed', left: '0', right: '0', flexGrow: 1, padding: '15px', backgroundColor: 'rgba(0,0,0,0.3)', borderBottomRightRadius: '8px', borderBottomLeftRadius: '8px', zIndex: 99999 }}>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>COACH</Typography>
         </Box>
 

@@ -18,7 +18,7 @@
   }
 
   .test {
-    height: 500px;
-    z-index: 10000;
+    /* height: 500px; */
+    z-index: 1000;
   }
 }

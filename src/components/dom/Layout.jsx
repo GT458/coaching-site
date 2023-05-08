@@ -10,7 +10,8 @@ const Layout = forwardRef(({ children, ...props }, ref) => {
     <div
       {...props}
       ref={localRef}
-      className='absolute top-0 left-0 h-screen w-screen overflow-scroll bg-zinc-300'>
+      className='absolute top-0 left-0 h-screen w-screen overflow-scroll bg-slate-100'
+    >
       <ResponsiveAppBar />
       {children}
     </div>
